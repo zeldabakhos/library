@@ -13,7 +13,6 @@ namespace project.Models
         [StringLength(200, ErrorMessage = "Location cannot exceed 200 characters.")]
         public string? Location { get; set; }
 
-        // Relationships
         public ICollection<Book>? Books { get; set; }
     }
 }

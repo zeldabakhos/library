@@ -13,11 +13,9 @@ namespace project.Models
         [StringLength(300, ErrorMessage = "Description cannot exceed 300 characters.")]
         public string? Description { get; set; }
 
-        // Many-to-many relationship with Books
         public ICollection<BookCategory>? BookCategories { get; set; }
     }
 
-    // Join table for many-to-many relationship
     public class BookCategory
     {
         public int BookId { get; set; }

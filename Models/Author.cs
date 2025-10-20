@@ -20,7 +20,6 @@ namespace project.Models
 
         public ICollection<Book>? Books { get; set; }
 
-        // --- Custom Validator for DateOfBirth ---
         public static ValidationResult? ValidateDateOfBirth(DateTime date, ValidationContext context)
         {
             if (date > DateTime.Now)

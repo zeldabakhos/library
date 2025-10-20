@@ -24,11 +24,10 @@ namespace project.Models
         public Author? Author { get; set; }
         
         [Required(ErrorMessage = "A publisher must be assigned to the book.")]
-        public int? PublisherId { get; set; }   // make it nullable if you want it optional
+        public int? PublisherId { get; set; }   
 
-        public Publisher? Publisher { get; set; }  // navigation property
+        public Publisher? Publisher { get; set; }  
 
-        // --- Custom Validator for PublishedDate ---
         public static ValidationResult? ValidatePublishedDate(DateTime date, ValidationContext context)
         {
             if (date > DateTime.Now)

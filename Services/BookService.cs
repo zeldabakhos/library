@@ -8,20 +8,16 @@ namespace project.Services
     {
         private readonly Library_AppContext _context;
 
-        public BookService()
+        public BookService(Library_AppContext context)
         {
-            var options = new DbContextOptionsBuilder<Library_AppContext>()
-                .UseSqlServer("Server=tcp:epita1.database.windows.net,1433;Initial Catalog=database1;Persist Security Info=False;User ID=zelda;Password=Z@B18Juin;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;")
-                .Options;
-
-            _context = new Library_AppContext(options);
+            _context = context;
         }
         
         public async Task<List<BookReadDTO>> GetAllBooks()
         {
             return await _context.Books
                 .Include(b => b.Author)
-                .Include(b => b.Publisher) // NEW: include publisher relation
+                .Include(b => b.Publisher) 
                 .Select(b => new BookReadDTO
                 {
                     Id = b.Id,
@@ -29,7 +25,7 @@ namespace project.Services
                     Summary = b.Summary,
                     PublishedDate = b.PublishedDate,
                     AuthorName = b.Author.Name,
-                    PublisherName = b.Publisher != null ? b.Publisher.Name : null // NEW
+                    PublisherName = b.Publisher != null ? b.Publisher.Name : null 
                 })
                 .ToListAsync();
         }
@@ -38,7 +34,7 @@ namespace project.Services
         {
             return await _context.Books
                 .Include(b => b.Author)
-                .Include(b => b.Publisher) // NEW: include publisher relation
+                .Include(b => b.Publisher) 
                 .Where(b => b.Id == id)
                 .Select(b => new BookReadDTO
                 {
@@ -47,7 +43,7 @@ namespace project.Services
                     Summary = b.Summary,
                     PublishedDate = b.PublishedDate,
                     AuthorName = b.Author.Name,
-                    PublisherName = b.Publisher != null ? b.Publisher.Name : null // NEW
+                    PublisherName = b.Publisher != null ? b.Publisher.Name : null 
                 })
                 .FirstOrDefaultAsync();
         }
