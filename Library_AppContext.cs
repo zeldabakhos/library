@@ -21,21 +21,18 @@ namespace project
         {
             base.OnModelCreating(builder);
 
-            // --- Author ↔ Book ---
             builder.Entity<Book>()
                 .HasOne(b => b.Author)
                 .WithMany(a => a.Books)
                 .HasForeignKey(b => b.AuthorId)
                 .OnDelete(DeleteBehavior.Cascade);
 
-            // --- Publisher ↔ Book (1-to-many) ---
             builder.Entity<Book>()
                 .HasOne<Publisher>()
                 .WithMany(p => p.Books)
                 .HasForeignKey("PublisherId")
                 .OnDelete(DeleteBehavior.SetNull);
 
-            // --- Book ↔ Category (many-to-many via BookCategory) ---
             builder.Entity<BookCategory>()
                 .HasKey(bc => new { bc.BookId, bc.CategoryId });
 

@@ -14,7 +14,6 @@ namespace project
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            // Connection string from appsettings.json or Azure config
             var connectionString = builder.Configuration.GetConnectionString("Library_AppContextConnection")
                                    ?? throw new InvalidOperationException("Connection string 'Library_AppContextConnection' not found.");
 
@@ -43,14 +42,16 @@ namespace project
             // --- Swagger / OpenAPI ---
             if (app.Environment.IsDevelopment())
             {
-                app.MapOpenApi();
+                app.UseDeveloperExceptionPage();
             }
 
+            app.MapOpenApi(); 
             app.UseHttpsRedirection();
             app.UseAuthorization();
             app.MapControllers();
 
             app.Run();
+
         }
     }
 }
